@@ -13,4 +13,4 @@ jobs:
             disable-autolabeler: true
             publish: true
           env:
-            GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.PAT }}
