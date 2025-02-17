@@ -3,9 +3,10 @@ on: workflow_dispatch
 
 jobs:
   release_publisher:
+    permissions:
+      contents: write
     name: 🚀 Release publisher
     runs-on: ubuntu-latest
-    environment: production
     steps:
         - uses: release-drafter/release-drafter@v5
           with:
