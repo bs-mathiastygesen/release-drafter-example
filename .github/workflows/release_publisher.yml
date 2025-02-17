@@ -5,7 +5,6 @@ jobs:
   release_publisher:
     permissions:
       contents: write
-    name: 🚀 Release publisher
     runs-on: ubuntu-latest
     steps:
         - uses: release-drafter/release-drafter@v5
@@ -14,4 +13,4 @@ jobs:
             disable-autolabeler: true
             publish: true
           env:
-            GITHUB_TOKEN: ${{ secrets.PAT }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
