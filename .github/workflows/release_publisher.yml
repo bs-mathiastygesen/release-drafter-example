@@ -1,0 +1,14 @@
+name: release_publisher
+on: workflow_dispatch
+
+jobs:
+  release_publisher:
+    name: 🚀 Release publisher
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+        - uses: release-drafter/release-drafter@v5
+          with:
+            config-name: release_drafter.yml
+            disable-autolabeler: true
+            publish: true
