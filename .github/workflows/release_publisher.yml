@@ -12,7 +12,7 @@ jobs:
             config-name: release_drafter.yml
             disable-autolabeler: true
             version: 2.0.0
-            teag: 2.0.0
+            tag: 2.0.0
             publish: true
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
