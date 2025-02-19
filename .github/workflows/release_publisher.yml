@@ -1,19 +1,42 @@
 name: release_publisher
-on: workflow_dispatch
+
+on:
+  push:
+    branches:
+      - "release"
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: .
+
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+  issues: write
+  security-events: write
+  actions: write
 
 jobs:
-  release_publisher:
-    permissions:
-      contents: write
+  version_and_release:
     runs-on: ubuntu-latest
     steps:
-        - uses: release-drafter/release-drafter@v5
-          with:
-            config-name: release_drafter.yml
-            disable-autolabeler: true
-            version: 2.1.0
-            tag: 2.1.0
-            name: 2.1.0
-            publish: true
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+
+      - name: Read & Update VERSION File for Production
+        run: |
+          VERSION=$(sed 's/-rc.[0-9]*//' VERSION)
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+
+      - name: Release current draft
+        uses: release-drafter/release-drafter@v6
+        with:
+          config-name: release_drafter.yml
+          disable-autolabeler: true
+          version: ${{ env.VERSION }}
+          tag: ${{ env.VERSION }}
+          name: ${{ env.VERSION }}
+          publish: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
